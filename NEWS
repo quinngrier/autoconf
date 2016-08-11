@@ -27,6 +27,9 @@ GNU Autoconf NEWS - User visible changes.
    is now deprecated.  If you really need that behavior use
    AC_PREPROC_IFELSE.
 
+** Newlines are now supported in cache variables.  They are translated
+   to expansions of a M4sh-reserved variable that contains a newline.
+
 ** Macros
 
 - New macro AC_C__GENERIC.

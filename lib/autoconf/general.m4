@@ -1978,42 +1978,34 @@ fi
 # --------------
 # Dump the cache to stdout.  It can be in a pipe (this is a requirement).
 m4_define([_AC_CACHE_DUMP],
-[# The following way of writing the cache mishandles newlines in values,
-# but we know of no workaround that is simple, portable, and efficient.
-# So, we kill variables containing newlines.
+[dnl
 # Ultrix sh set writes to stderr and can't be redirected directly,
 # and sets the high bit in the cache file unless we assign to the vars.
 (
+  ac_seen=,
   for ac_var in `(set) 2>&1 | sed -n ['s/^\([a-zA-Z_][a-zA-Z0-9_]*\)=.*/\1/p']`; do
-    eval ac_val=\$$ac_var
-    case $ac_val in #(
-    *${as_nl}*)
-      case $ac_var in #(
-      *_cv_*) AC_MSG_WARN([cache variable $ac_var contains a newline]) ;;
-      esac
-      case $ac_var in #(
-      _ | IFS | as_nl) ;; #(
-      BASH_ARGV | BASH_SOURCE) eval $ac_var= ;; #(
-      *) AS_UNSET([$ac_var]) ;;
+    case $ac_var in #(
+    *_cv_*)
+      eval ac_hit=\$[]{$ac_var+x}
+      case $ac_hit in #(
+      x)
+        case $ac_seen in #(
+        *,$ac_var,*) ;; #(
+        *)
+          eval ac_val=\$$ac_var
+          sed "
+            s/'/'\\\\''/g
+            1s/^/$ac_var='/
+            \$!s/\$/'\"\$as_nl\"'/
+            \$s/\$/'/
+          " <<_ACEOF | tr -d "$as_nl"; echo
+$ac_val
+_ACEOF
+          ac_seen=$ac_seen$ac_var, ;;
+        esac ;;
       esac ;;
     esac
-  done
-
-  (set) 2>&1 |
-    case $as_nl`(ac_space=' '; set) 2>&1` in #(
-    *${as_nl}ac_space=\ *)
-      # `set' does not quote correctly, so add quotes: double-quote
-      # substitution turns \\\\ into \\, and sed turns \\ into \.
-      sed -n \
-	["s/'/'\\\\''/g;
-	  s/^\\([_$as_cr_alnum]*_cv_[_$as_cr_alnum]*\\)=\\(.*\\)/\\1='\\2'/p"]
-      ;; #(
-    *)
-      # `set' quotes correctly as required by POSIX, so do not add quotes.
-      sed -n ["/^[_$as_cr_alnum]*_cv_[_$as_cr_alnum]*=/p"]
-      ;;
-    esac |
-    sort
+  done | sort
 )dnl
 ])# _AC_CACHE_DUMP
 

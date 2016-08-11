@@ -10087,11 +10087,10 @@ For example, @samp{broken} or @samp{set}.  This part of the name may
 be omitted if it does not apply.
 @end table
 
-The values assigned to cache variables may not contain newlines.
-Usually, their values are Boolean (@samp{yes} or @samp{no}) or the
-names of files or functions; so this is not an important restriction.
-@ref{Cache Variable Index} for an index of cache variables with
-documented semantics.
+The values assigned to cache variables may contain newlines, which are
+translated to expansions of a M4sh-reserved variable that contains a
+newline.  For an index of cache variables with documented semantics,
+@pxref{Cache Variable Index}.
 
 
 @node Cache Files
